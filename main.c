@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<stdint.h>
 #include<assert.h>
+#include "fruits.h"
+
 
 typedef struct Node Node;
 struct Node {
@@ -29,12 +31,18 @@ void insert_node(const char *text, Node* root) {
    	root->children[index] = allocate_node();
    }
    insert_node(text+1,root->children[index]);
+}
 
+void init_tree(Node* root) {
+    for(int i=0;i< sizeof(fruits)/sizeof(fruits[0]);i++){
+	    insert_node(fruits[i],root);
+    }
 }
 
 
 int main(void) {
     Node* stuff = allocate_node();
-    insert_node("hello", stuff);
+    init_tree(stuff);
+
     return 0;
 }
