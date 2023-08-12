@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdint.h>
 #include<assert.h>
-#include "fruits.h"
+#include "include/fruits.h"
 
 #define ARRAY_LEN(xs) (sizeof(xs)/sizeof((xs)[0]))
 
