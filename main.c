@@ -3,6 +3,7 @@
 #include<assert.h>
 #include "fruits.h"
 
+#define ARRAY_LEN(xs) (sizeof(xs)/sizeof((xs)[0]))
 
 typedef struct Node Node;
 struct Node {
@@ -39,10 +40,24 @@ void init_tree(Node* root) {
     }
 }
 
+void insert_dots(Node* root) {
+    if(root == NULL) return;
+    size_t index= root - node_pool;
+    for (size_t i=0;i< ARRAY_LEN(root->children); ++i) {
+	    if(root->children[i] != NULL) {
+		    size_t child_idx = root->children[i] - node_pool; 
+		    printf("    \"%zu\" -> \"%zu\"\n [label=\"%c\"]", index, child_idx,(char)i);
+		    insert_dots(root->children[i]);
+	     }
+    }
+
+}
 
 int main(void) {
     Node* stuff = allocate_node();
     init_tree(stuff);
-
+    printf("digraph trie {\n");
+    insert_dots(stuff);
+    printf("}\n");
     return 0;
 }
